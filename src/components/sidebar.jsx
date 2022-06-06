@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Box,
   List,
@@ -6,106 +7,155 @@ import {
   ListItemIcon,
   ListItemText,
   Switch,
+  ButtonGroup,
+  Button,
+  Drawer,
+  Divider,
+  Typography,
 } from "@mui/material";
 import {
-  Home as HomeIcon,
   Email,
   Group,
   Info,
   Notifications,
-  Folder,
+  Edit,
   Contacts,
-  ModeNight,
+  Home,
+  ModeNightTwoTone,
 } from "@mui/icons-material";
-import React from "react";
-// import { Positioned, email, } from './Navbar'
+import AppLogo from "./AppLogo";
 
-const Sidebar = () => {
+const Sidebar = ({
+  window,
+  mode,
+  setMode,
+  myColor,
+  setMyColor,
+  mobileOpen,
+  handleDrawerToggle,
+}) => {
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
+  const drawer = (
+    <Box
+      component="nav"
+      sx={{ width: { sm: 180, flexShrink: { sm: 0 } } }}
+      aria-label="mailbox folders"
+    >
+      <List
+        disablePadding
+        sx={{ maxWidth: "100%", overflowY: "auto" }}
+        dense={true}
+      >
+        <ListItem disablePadding key="0001">
+          <ListItemButton component="a" href="#/">
+            <ListItemIcon mr={0} display="flex" position="relative">
+              <AppLogo />
+            </ListItemIcon>
+          </ListItemButton>
+        </ListItem>
+        {[
+          { text: "Home", icon: <Home /> },
+          { text: "Group", icon: <Group /> },
+          { text: "Info", icon: <Info /> },
+          { text: "Contacts", icon: <Contacts /> },
+          { text: "Emails", icon: <Email /> },
+          { text: "Notifications", icon: <Notifications /> },
+          { text: "Register", icon: <Edit /> },
+        ].map((entry, index) => (
+          <ListItem disablePadding key={index}>
+            <ListItemButton component="a" href="#/">
+              <ListItemIcon>{entry.icon}</ListItemIcon>
+              <ListItemText>{entry.text}</ListItemText>
+            </ListItemButton>
+          </ListItem>
+        ))}
+        <br />
+        <Divider sx={{ ml: 2, mr: 2 }}>
+          <Typography variant="subtitle1" color="text.primary" fontWeight="300">
+            Theme
+          </Typography>
+        </Divider>
+        <ListItem disablePadding sx={{ p: 2 }}>
+          <ButtonGroup
+            orientation="vertical"
+            variant="contained"
+            aria-label="theme"
+            size="small"
+            direction="row"
+            value={myColor}
+            ml={2}
+          >
+            <Button onClick={(e) => setMyColor("blue")} bgcolor="blue">
+              Blue
+            </Button>
+            <Button onClick={(e) => setMyColor("purple")} bgcolor="purple">
+              Purple
+            </Button>
+            <Button onClick={(e) => setMyColor("magenta")} bgcolor="magenta">
+              Magenta
+            </Button>
+          </ButtonGroup>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemIcon>
+              <ModeNightTwoTone />
+            </ListItemIcon>
+            <Switch
+              onChange={(e) => setMode(mode === "light" ? "dark" : "light")}
+            />
+          </ListItemButton>
+        </ListItem>
+      </List>
+    </Box>
+  );
   return (
     <Box
       flex={1}
       p={2}
+      bgcolor="background.default"
+      color="text.secondary"
       sx={{
         display: { xs: "none", sm: "block" },
-        bgcolor:"whitesmoke"
+        overflowY: "auto",
       }}
     >
       <Box
         sx={{
           position: "fixed",
+          overflowY: "auto",
         }}
       >
-        <List disablePadding sx={{ maxWidth:"100%" }} dense={true}>
-          <ListItem disablePadding>
-            <ListItemButton component="a" href="/">
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary="Home"></ListItemText>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" href="/">
-              <ListItemIcon>
-                <Group />
-              </ListItemIcon>
-              <ListItemText primary="Group"></ListItemText>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" href="/">
-              <ListItemIcon>
-                <Info />
-              </ListItemIcon>
-              <ListItemText primary="Info"></ListItemText>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" href="/">
-              <ListItemIcon>
-                <Contacts />
-              </ListItemIcon>
-              <ListItemText primary="Contacts"></ListItemText>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" href="/">
-              <ListItemIcon>
-                <Email />
-              </ListItemIcon>
-              <ListItemText primary="Emails"></ListItemText>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" href="/">
-              <ListItemIcon>
-                <Notifications />
-              </ListItemIcon>
-              <ListItemText primary="Notifications"></ListItemText>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton component="a" href="/">
-              <ListItemIcon>
-                <Folder />
-              </ListItemIcon>
-              <ListItemText primary="Register"></ListItemText>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <ModeNight />
-              </ListItemIcon>
-              <Switch
-              // value="off"
-              // checked={ false }
-              // onChange={ ()=> null }
-              // inputProps={{ "aria-label": 'controled' }}
-              />
-            </ListItemButton>
-          </ListItem>
-        </List>
+        <Drawer
+          container={container}
+          variant="temporary"
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          sx={{
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+            },
+          }}
+        >
+          {drawer}
+        </Drawer>
+        <Drawer
+          variant="persistent"
+          sx={{
+            display: { xs: "none", sm: "block" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+            },
+          }}
+          open
+        >
+          {drawer}
+        </Drawer>
       </Box>
     </Box>
   );

@@ -4,7 +4,7 @@ import { ListItem, Divider, ListItemText, ListItemAvatar, Avatar, Typography, } 
 export default function Discus(imgLink) {
   return (
     <>
-      <ListItem alignItems="flex-start">
+      <ListItem alignItems="flex-start" key={imgLink } color="primary">
         <ListItemAvatar>
           <Avatar alt="Remy Sharp" src={`http://127.0.0.1:5500/src/img/1%20(${imgLink}).jpg`} />
         </ListItemAvatar>
@@ -16,7 +16,7 @@ export default function Discus(imgLink) {
                 sx={{ display: 'inline' }}
                 component="span"
                 variant="body2"
-                color="text.primary"
+                color="primary"
               >
                 Ali Connors
               </Typography>

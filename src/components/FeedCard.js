@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, CardHeader, CardMedia, CardContent, CardActions, Avatar, IconButton, Typography, styled, Collapse, Checkbox, Button, } from "@mui/material";
-import { Share, Favorite, MoreVert, ExpandCircleDownRounded, FavoriteBorder } from '@mui/icons-material'
+import { Favorite, MoreVert, ExpandCircleDownRounded, FavoriteBorder } from '@mui/icons-material'
+import ShareBtn from './ShareBtn'
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -23,7 +24,7 @@ export default function FeedCard(imgLink) {
     setExpanded(!expanded);
   };
   return (
-<Card sx={{ marginBottom:5, bgcolor: "whitesmoke" }} color="secondary" key={imgLink}>
+<Card sx={{ marginBottom:5, }} key={imgLink}>
   <MyButton href={`#/${imgLink}`}>
     <Card >
       <CardMedia
@@ -60,9 +61,7 @@ export default function FeedCard(imgLink) {
         <IconButton aria-label="add to favorites">
         <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite sx={{ color:"red"}} />} />
         </IconButton>
-        <IconButton aria-label="share">
-          <Share />
-        </IconButton>
+          <ShareBtn />
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
