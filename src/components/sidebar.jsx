@@ -11,19 +11,12 @@ import {
   Button,
   Drawer,
   Divider,
-  Typography,
+  Chip,
+  Checkbox,
 } from "@mui/material";
-import {
-  Email,
-  Group,
-  Info,
-  Notifications,
-  Edit,
-  Contacts,
-  Home,
-  ModeNightTwoTone,
-} from "@mui/icons-material";
+import { BrowserRouter as Router, Link  } from 'react-router-dom'
 import AppLogo from "./AppLogo";
+import { ModeNight, ModeNightRounded } from "@mui/icons-material";
 
 const Sidebar = ({
   window,
@@ -33,14 +26,19 @@ const Sidebar = ({
   setMyColor,
   mobileOpen,
   handleDrawerToggle,
+  clientScreen,
+  navLinks
 }) => {
   const container =
     window !== undefined ? () => window().document.body : undefined;
+  const { isMobile, isTablet, } = clientScreen
   const drawer = (
     <Box
       component="nav"
-      sx={{ width: { sm: 180, flexShrink: { sm: 0 } } }}
       aria-label="mailbox folders"
+      sx={{
+        width: clientScreen.isTablet ? 60 :'100%'
+      }}
     >
       <List
         disablePadding
@@ -54,27 +52,17 @@ const Sidebar = ({
             </ListItemIcon>
           </ListItemButton>
         </ListItem>
-        {[
-          { text: "Home", icon: <Home /> },
-          { text: "Group", icon: <Group /> },
-          { text: "Info", icon: <Info /> },
-          { text: "Contacts", icon: <Contacts /> },
-          { text: "Emails", icon: <Email /> },
-          { text: "Notifications", icon: <Notifications /> },
-          { text: "Register", icon: <Edit /> },
-        ].map((entry, index) => (
+        {navLinks.map((entry, index) => (
           <ListItem disablePadding key={index}>
-            <ListItemButton component="a" href="#/">
+            <ListItemButton component={Link} to={entry.link} onClick={()=>clientScreen.isMobile ? handleDrawerToggle() : null}>
               <ListItemIcon>{entry.icon}</ListItemIcon>
-              <ListItemText>{entry.text}</ListItemText>
+              <ListItemText sx={{display: isTablet ? "none" : "block" }}>{entry.text}</ListItemText>
             </ListItemButton>
           </ListItem>
         ))}
         <br />
         <Divider sx={{ ml: 2, mr: 2 }}>
-          <Typography variant="subtitle1" color="text.primary" fontWeight="300">
-            Theme
-          </Typography>
+          <Chip fontWeight="300" label="Theme" />
         </Divider>
         <ListItem disablePadding sx={{ p: 2 }}>
           <ButtonGroup
@@ -87,24 +75,26 @@ const Sidebar = ({
             ml={2}
           >
             <Button onClick={(e) => setMyColor("blue")} bgcolor="blue">
-              Blue
+              B{clientScreen.isTablet ? '' : 'lue' }
             </Button>
             <Button onClick={(e) => setMyColor("purple")} bgcolor="purple">
-              Purple
+              P{clientScreen.isTablet ? '' : 'urple' }
             </Button>
             <Button onClick={(e) => setMyColor("magenta")} bgcolor="magenta">
-              Magenta
+              M{clientScreen.isTablet ? '' : 'agenta' }
             </Button>
           </ButtonGroup>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton
+            onClick={() => setMode(mode === "light" ? "dark" : "light")}
+          >
             <ListItemIcon>
-              <ModeNightTwoTone />
+              <Checkbox 
+                icon={<ModeNightRounded />}
+                checkedIcon={<ModeNightRounded color="red"/>}
+              />
             </ListItemIcon>
-            <Switch
-              onChange={(e) => setMode(mode === "light" ? "dark" : "light")}
-            />
           </ListItemButton>
         </ListItem>
       </List>
@@ -112,7 +102,7 @@ const Sidebar = ({
   );
   return (
     <Box
-      flex={1}
+      flex={clientScreen.isTablet ? 0.4 : 1}
       p={2}
       bgcolor="background.default"
       color="text.secondary"
@@ -129,14 +119,14 @@ const Sidebar = ({
       >
         <Drawer
           container={container}
-          variant="temporary"
-          open={mobileOpen}
+          variant= {isMobile ? "temporary" : "persistent"}
+          open={isMobile ? mobileOpen : true}
           onClose={handleDrawerToggle}
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: "block", sm: "none" },
+            display: { xs: isMobile ? (mobileOpen ? "block" : "none") : "block", sm: isMobile ? "block" : (mobileOpen ? "none" : "block") },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
             },
@@ -144,8 +134,8 @@ const Sidebar = ({
         >
           {drawer}
         </Drawer>
-        <Drawer
-          variant="persistent"
+        {/* <Drawer
+kl          variant="persistent"
           sx={{
             display: { xs: "none", sm: "block" },
             "& .MuiDrawer-paper": {
@@ -155,7 +145,7 @@ const Sidebar = ({
           open
         >
           {drawer}
-        </Drawer>
+        </Drawer> */}
       </Box>
     </Box>
   );

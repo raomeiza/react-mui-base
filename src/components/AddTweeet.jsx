@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Tooltip, Fab, Modal, Box, styled, Typography, Avatar, TextField, Paper } from "@mui/material";
 import { Add } from "@mui/icons-material";
+import profileImg from '../img/1 (1).jpg'
 export default function AddTweet() {
   const MyModal = styled(Modal)({
     display: "flex",
@@ -46,7 +47,7 @@ export default function AddTweet() {
           </Typography>
           <UserBox>
             <Avatar
-              src="http://127.0.0.1:5500/src/img/1%20(1).jpg"
+              src={ profileImg}
               sx={{ width: 30, height: 30 }}
             />
             <Typography variant="span" fontWeight={200}>
@@ -62,6 +63,16 @@ export default function AddTweet() {
             rows={4}
             variant="filled"
             sx={{ width: "100%", color:"text.primary"}}
+            value="hello 👋!
+            how are you doing today?
+            I spoke with Johnson and he told me that you have been sick for some time now.
+            send me your account number let me see what i can do between now and next year.
+            I'll appreciate it if you patiently wait for the alert instead of calling me as I wil be very busy.
+            I wish you quick recovery.
+            Me regards to your mum and dad.
+            Bye for now.
+            Yours beautifully,
+            Joey ☺ "
             component={Paper}
           />
         </Box>

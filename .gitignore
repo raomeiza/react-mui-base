@@ -11,7 +11,7 @@
 # production
 /build
 
-#images
+#private images
 /src/img
 
 # misc

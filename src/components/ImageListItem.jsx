@@ -1,13 +1,14 @@
 import React from "react";
 import { ImageListItem } from "@mui/material";
 
-export default function ImageListItems(imgLink) {
+export default function ImageListItems(imgLink, index) {
+  let img = require(`../img/1 (${imgLink}).jpg`)
   return (
-    <ImageListItem key={imgLink} w={5} h={5}>
+    <ImageListItem key={index} w={5} h={5}>
       <img
-        src=""
-        alt={`http://127.0.0.1:5500/src/img/1%20(${imgLink}).jpg`}
-        srcSet={`http://127.0.0.1:5500/src/img/1%20(${imgLink}).jpg`}
+        src={img}
+        alt={img}
+        srcSet={img}
         loading="lazy"
       />
     </ImageListItem>

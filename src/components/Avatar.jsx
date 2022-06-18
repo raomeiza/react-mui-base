@@ -1,12 +1,12 @@
 import React from "react";
 import { Avatar, } from "@mui/material";
 
-export default function Avatart(imgLink) {
+export default function Avatart(imgLink, index) {
   return (
       <Avatar
         alt="hello"
-        src={`http://localhost:5500/src/img/2 (${imgLink}).jpg`}
-        key={imgLink}
+        src={require(`../img/2 (${imgLink}).jpg`)}
+        key={index}
       />
   );
 }

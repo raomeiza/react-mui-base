@@ -12,18 +12,16 @@ import {
   useScrollTrigger,
   Slide,
 } from "@mui/material";
-import Typography from "@mui/material/Typography";
 import {
   Menu as MenuIcon,
   Search,
-  Pets,
   Mail as MailIcon,
   Notifications,
 } from "@mui/icons-material";
 import Image from "../img/2 (1).jpg";
 import AppLogo from "./AppLogo";
 
-const Navbar = ({email, handleDrawerToggle}) => {
+const LocalNavbar = ({email, handleDrawerToggle}) => {
   const Searchbox = styled("div")(({ theme }) => ({
     backgroundColor: "white",
     borderRadius: theme.shape.borderRadius,
@@ -161,4 +159,11 @@ const Navbar = ({email, handleDrawerToggle}) => {
     </Slide>
   );
 };
+class Navbar extends React.Component{
+  render(){
+    return (
+      < LocalNavbar email={this.props.email} handleDrawerToggle={this.props.handleDrawerToggle}/>
+    )
+  }
+}
 export default Navbar;

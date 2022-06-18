@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, } from "@mui/material";
 import FeedCard from "./FeedCard";
 
-const Feed = function(imgLink) {
-  const feeds = [1,2,3,4,5,6,7,8,9,11,12,13,15,14,16,17,18,19,20]
+const Feed = function({clientScreen, imgLink}) {
+  useEffect(() => {
+    window.scroll(0,0)
+  }, [  ])
+  
   return (
-    <Box flex={4} bgcolor="background.default">
+    <Box 
+      alignContent="center"
+      sx={{
+        margin:{ xs:1, sm:1}
+      }}
+    >
       {
-        feeds.map((value) => (
+        imgLink.map((value) => (
           FeedCard(value)
         ))
       }

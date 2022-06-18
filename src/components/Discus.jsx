@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { ListItem, Divider, ListItemText, ListItemAvatar, Avatar, Typography, } from '@mui/material';
 
-export default function Discus(imgLink) {
+export default function Discus(imgLink, index) {
   return (
     <>
-      <ListItem alignItems="flex-start" key={imgLink } color="primary">
+      <ListItem alignItems="flex-start" key={index } color="primary">
         <ListItemAvatar>
-          <Avatar alt="Remy Sharp" src={`http://127.0.0.1:5500/src/img/1%20(${imgLink}).jpg`} />
+          <Avatar alt="Remy Sharp" src={require(`../img/1 (${imgLink}).jpg`)} />
         </ListItemAvatar>
         <ListItemText
           primary="Brunch this weekend?"

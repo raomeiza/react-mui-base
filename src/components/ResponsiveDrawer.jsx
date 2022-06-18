@@ -1,5 +1,4 @@
 import * as React from "react";
-import PropTypes from "prop-types";
 import {
   AppBar,
   Box,
@@ -18,7 +17,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { Contacts, Edit, Email, Group, Home, Inbox as InboxIcon, Info, Mail as MailIcon, Menu as MenuIcon, ModeNightOutlined, Notifications } from "@mui/icons-material";
+import { Contacts, Edit, Email, Group, Home, Info, Menu as MenuIcon, ModeNightOutlined, Notifications } from "@mui/icons-material";
 
 // const drawerWidth = 240;
 
@@ -195,7 +194,7 @@ function ResponsiveDrawer({window, myColor, setMyColor, mode, setMode, mobileOpe
           {drawer}
         </Drawer>
         <Drawer
-          variant="temporary"
+          variant="permanent"
           sx={{
             display: { xs: "none", sm: "block" },
             "& .MuiDrawer-paper": {
@@ -203,7 +202,7 @@ function ResponsiveDrawer({window, myColor, setMyColor, mode, setMode, mobileOpe
               width: drawerWidth,
             },
           }}
-          open={mobileOpen}
+          open
         >
           {drawer}
         </Drawer>
