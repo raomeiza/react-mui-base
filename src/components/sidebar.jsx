@@ -73,6 +73,7 @@ const Sidebar = ({
             direction="row"
             value={myColor}
             ml={2}
+            active
           >
             <Button onClick={(e) => setMyColor("blue")} bgcolor="blue">
               B{clientScreen.isTablet ? '' : 'lue' }
@@ -93,6 +94,7 @@ const Sidebar = ({
               <Checkbox 
                 icon={<ModeNightRounded />}
                 checkedIcon={<ModeNightRounded color="red"/>}
+                checked={mode === 'dark' && true}
               />
             </ListItemIcon>
           </ListItemButton>

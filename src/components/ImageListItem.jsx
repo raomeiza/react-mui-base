@@ -7,8 +7,7 @@ export default function ImageListItems(imgLink, index) {
     <ImageListItem key={index} w={5} h={5}>
       <img
         src={img}
-        alt={img}
-        srcSet={img}
+        alt={'img'}
         loading="lazy"
       />
     </ImageListItem>

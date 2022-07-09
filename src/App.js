@@ -22,6 +22,7 @@ import {
   Info,
   Notifications,
 } from "@mui/icons-material";
+import { colorData } from "./components/color.data";
 
 function LocalApp({ images, navLinks, email }) {
   const isMobile = useMediaQuery(useTheme().breakpoints.down("sm"));
@@ -36,28 +37,33 @@ function LocalApp({ images, navLinks, email }) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  function setScrollBarCollor(color){
-  let scrollbarCss = document.getElementById('scrollbar-style')
-  scrollbarCss.replaceChildren(`
-  ::-webkit-scrollbar-thumb {
-    background: ${String(color)};
-    border-radius: 1vw;
-  }
-  `)
-  // document.head.appendChild(scrollbarCss)
-}
-
+  const scrollBar = document.getElementById("scrollbar-style")
+  //  get the dom node for seting the app color
+  let appColor = document.getElementById('app-color')
+  React.useEffect(() => {
+    // the color to use for global scroll bar and app theme
+    // the app theme makes the app look like native app as mobile
+    // browsers fill the rest of the screan outside the browser
+    // with it
+    let color = colorData[myColor][mode].primary.main;
+    // set the app color
+    appColor.setAttribute('content', color)
+    // set the Scrollbar color
+    scrollBar.replaceChildren(`
+      ::-webkit-scrollbar-thumb {
+        background: ${String(color)};
+        border-radius: 1vw;
+      }
+      `);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mode, myColor])
+  
   let divided = Math.floor(images.length / navLinks.length);
   return (
     <ThemeProvider theme={myTheme({ mode, myColor })}>
       <CssBaseline enableColorScheme />
-      { setScrollBarCollor('blue') }
       <Box bgcolor="background.default">
         <Navbar
-          setMode={setMode}
-          mode={mode}
-          myColor={myColor}
-          setMyColor={setMyColor}
           setMobielOpen={setMobileOpen}
           handleDrawerToggle={handleDrawerToggle}
           email={email}
@@ -72,14 +78,14 @@ function LocalApp({ images, navLinks, email }) {
             <Sidebar
               flex={clientDevice.screen.isTablet ? 0.3 : 4}
               mode={mode}
-              setMode={setMode}
               myColor={myColor}
-              setMyColor={setMyColor}
               mobileOpen={mobileOpen}
               setMobileOpen={setMobileOpen}
               handleDrawerToggle={handleDrawerToggle}
               clientScreen={clientDevice.screen}
               navLinks={navLinks}
+              setMode={setMode}
+              setMyColor={setMyColor}
               key="sideBar"
             />
             <Box
@@ -93,15 +99,15 @@ function LocalApp({ images, navLinks, email }) {
               <Routes>
                 {navLinks.map((entry, index) => (
                   <Route
-                  path={entry.link}
-                  element={
-                    <Feed
+                    path={entry.link}
+                    element={
+                      <Feed
                         key={index}
                         imgLink={images.slice(
                           index * divided,
                           index * divided + divided
                         )}
-                        clientScreen={ clientDevice.screen }
+                        clientScreen={clientDevice.screen}
                       />
                     }
                   />
@@ -118,7 +124,7 @@ function LocalApp({ images, navLinks, email }) {
                           fontSize: "10em",
                         },
                       }}
-                    > 
+                    >
                       404 not found
                     </Box>
                     // <Feed

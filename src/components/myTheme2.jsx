@@ -10,7 +10,7 @@ export default function myTheme({ mode, myColor }) {
                 main: "#1e1e7b",
               }
             : {
-                main: "#3333cc",
+                main: "#3366cc",
               }),
         },
         secondary: {
@@ -29,6 +29,7 @@ export default function myTheme({ mode, myColor }) {
                 paper: "#3366cc",
               }
             : {
+                default: "#d6e0f5",
                 paper: "#3366cc",
                 // paper: ""
               }),

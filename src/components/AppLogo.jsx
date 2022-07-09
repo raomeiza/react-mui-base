@@ -9,7 +9,7 @@ export default function AppLogo({ show }) {
   return (
     <Box position="relative" sx={{m:0, p:0}}>
       <Typography variant="h2" color="text.secondary" mr={0} fontWeight="500">
-        O
+        AO
       </Typography>
       <Typography
         sx={{
